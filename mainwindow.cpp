@@ -130,6 +130,9 @@ void MainWindow::on_pushButton_equal_clicked()
                     case 3:{
                         qDebug() << "3";
                     }
+                    case 4: {
+                        qDebug() << "4";
+                    }
                 }
             }
         }
