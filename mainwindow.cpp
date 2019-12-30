@@ -1,3 +1,4 @@
+//Jakub Lemiesiewicz
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -115,6 +116,7 @@ void MainWindow::on_pushButton_equal_clicked()
         qDebug() << "ello";
     } else {
         if(firstnumber!=NULL && secondnumber!=NULL){
+
             if(type!=NULL){
                 switch (type) {
                     case 1:{
