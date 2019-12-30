@@ -22,6 +22,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void optymalize();
     void digital_pressed();
 
     void on_pushButton_dot_released();

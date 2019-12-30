@@ -26,7 +26,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::optymalize(){
+    QString upLabel = ui->label->text();
 
+}
 void MainWindow::digital_pressed(){
     //qDebug() << "test";
     QPushButton * button = (QPushButton*)sender();
@@ -48,11 +51,6 @@ void MainWindow::digital_pressed(){
             ui->label->setText(newLabel);
         }
     }
-
-
-
-
-
 }
 bool MainWindow::isdothere(QString a){
     int l = a.length();
@@ -93,7 +91,9 @@ void MainWindow::operation_pressed(){
         firstnumber = (ui->label->text()).toDouble();
         qDebug() << "first";
     } else {
-        secondnumber = (ui->label->text()).toDouble();
+        if(secondnumber==NULL){
+            secondnumber = (ui->label->text()).toDouble();
+        }
         result = firstnumber + secondnumber;
         firstnumber = result;
         qDebug() << "second";
@@ -102,11 +102,6 @@ void MainWindow::operation_pressed(){
         ui->label->setText(QString::number(result));
         checker = false;
     }
-
-
-
-
-
 }
 
 void MainWindow::on_pushButton_equal_clicked()
@@ -115,23 +110,31 @@ void MainWindow::on_pushButton_equal_clicked()
         ui->label->setText(QString::number(result));
         qDebug() << "ello";
     } else {
-        if(firstnumber!=NULL && secondnumber!=NULL){
-
+        if(firstnumber!=NULL){
             if(type!=NULL){
                 switch (type) {
                     case 1:{
-                        secondnumber = (ui->label->text()).toDouble();
+                        if(secondnumber==NULL){
+                            secondnumber = (ui->label->text()).toDouble();
+                        }
                         ui->label->setText(QString::number(firstnumber+secondnumber));
+                        firstnumber=firstnumber+secondnumber;
                         break;
                     }
                     case 2:{
                         qDebug() << "nothing";
+                        break;
                     }
                     case 3:{
                         qDebug() << "3";
+                        break;
                     }
                     case 4: {
                         qDebug() << "4";
+                        break;
+                    }
+                    default: {
+                        qDebug() <<"ERROR";
                     }
                 }
             }
