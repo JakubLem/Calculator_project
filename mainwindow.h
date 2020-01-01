@@ -18,6 +18,7 @@ public:
     double firstnumber = NULL, secondnumber = NULL, result = NULL;
     bool checker = false;
     int type = NULL;
+    bool lastoperation_equal = false;
 private:
     Ui::MainWindow *ui;
 

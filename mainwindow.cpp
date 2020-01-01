@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_9,SIGNAL(released()),this,SLOT(digital_pressed()));
 
     connect(ui->pushButton_plus,SIGNAL(released()),this,SLOT(operation_pressed()));
+    connect(ui->pushButton_minus,SIGNAL(released()),this,SLOT(operation_pressed()));
+    connect(ui->pushButton_x,SIGNAL(released()),this,SLOT(operation_pressed()));
+    connect(ui->pushButton_dzielenie,SIGNAL(released()),this,SLOT(operation_pressed()));
 }
 
 MainWindow::~MainWindow()
@@ -35,12 +38,16 @@ void MainWindow::digital_pressed(){
     QPushButton * button = (QPushButton*)sender();
     double labelNumber;
     QString newLabel;
-    if(firstnumber==NULL){
+    if(lastoperation_equal){
+        lastoperation_equal = false;
+        goto A;
+    } else if(firstnumber==NULL){
         labelNumber = (ui->label->text() + button->text()).toDouble();
         newLabel = QString::number(labelNumber,'g',15);
         ui->label->setText(newLabel);
     } else {
         if (checker == false){
+            A:
             labelNumber = (button->text()).toDouble();
             newLabel = QString::number(labelNumber,'g',15);
             ui->label->setText(newLabel);
@@ -84,28 +91,45 @@ void MainWindow::on_pushButton_C_clicked() {
     checker = false;
 }
 void MainWindow::operation_pressed(){
-    type = 1;
     QPushButton * button = (QPushButton*)sender();
-    qDebug() << "operation pressed";
-    if(firstnumber==NULL){
-        firstnumber = (ui->label->text()).toDouble();
-        qDebug() << "first";
-    } else {
-        if(secondnumber==NULL){
-            secondnumber = (ui->label->text()).toDouble();
+    if(button->text()=="+"){
+        type = 1;
+        qDebug() << "operation pressed";
+        if(firstnumber==NULL){
+            firstnumber = (ui->label->text()).toDouble();
+            qDebug() << "first";
+        } else {
+            if(secondnumber==NULL){
+                secondnumber = (ui->label->text()).toDouble();
+            }
+            /*
+            result = firstnumber + secondnumber;
+            firstnumber = result;
+            qDebug() << "second";
+            qDebug() << result;
+            secondnumber = NULL;
+            ui->label->setText(QString::number(result));*/
+            ui->label->setText(QString::number(firstnumber+secondnumber));
+            firstnumber=firstnumber+secondnumber;
+            checker = false;
         }
-        result = firstnumber + secondnumber;
-        firstnumber = result;
-        qDebug() << "second";
-        qDebug() << result;
-        secondnumber = NULL;
-        ui->label->setText(QString::number(result));
-        checker = false;
+    } else if (button->text()=="-"){
+        type = 2;
+        qDebug() << "type2";
+    } else if (button->text()=="x"){
+        type = 3;
+        qDebug() << "mnoznie";
+    } else if (button->text()=="/"){
+        type = 4;
+        qDebug() << "dzielenie";
     }
+    lastoperation_equal = false;
+
 }
 
 void MainWindow::on_pushButton_equal_clicked()
 {
+    lastoperation_equal = true;
     if(result!=NULL){
         ui->label->setText(QString::number(result));
         qDebug() << "ello";
