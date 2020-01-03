@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    double firstnumber = NULL, secondnumber = NULL, result = NULL;
+    double firstnumber = NULL, secondnumber = NULL,thirdnumber = NULL, result = NULL;
     bool checker = false;
     int type = NULL;
     bool lastoperation_equal = false;
@@ -34,8 +34,9 @@ private slots:
     void mnozenie();
     void dzielenie();
     void on_pushButton_dot_released();
-    void type_();
-
+    void type_(int option);
+    void dzielenie_trzy();
+    void mnozenie_trzy();
     bool isdothere(QString a);
     void on_pushButton_plusminus_released();
     void on_pushButton_C_clicked();
