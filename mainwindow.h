@@ -20,6 +20,7 @@ public:
     int type = NULL;
     bool lastoperation_equal = false;
     bool secondchecker;
+    int anotherchecker = 0;
 
 private:
     Ui::MainWindow *ui;
@@ -27,7 +28,7 @@ private:
 private slots:
     void optymalize();
     void digital_pressed();
-    void another();
+    void another(int option);
     void dodawanie();
     void odejmowanie();
     void mnozenie();

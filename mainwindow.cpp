@@ -4,8 +4,7 @@
 #include <cmath>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    , ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     connect(ui->pushButton_0,SIGNAL(released()),this,SLOT(digital_pressed()));
@@ -25,10 +24,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_dzielenie,SIGNAL(released()),this,SLOT(operation_pressed()));
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
+
 bool MainWindow::isdothere(QString a){
     int l = a.length();
     for(int i = 0 ; i<l ; i++){
@@ -38,36 +37,42 @@ bool MainWindow::isdothere(QString a){
     }
     return true;
 }
+
 void MainWindow::optymalize(){
     QString upLabel = ui->label->text();
 
 }
+
 void MainWindow::digital_pressed(){
     //qDebug() << "test";
     secondchecker = true;
     QPushButton * button = (QPushButton*)sender();
     double labelNumber;
     QString newLabel;
-    if(lastoperation_equal){
-        lastoperation_equal = false;
-        goto A;
-    } else if(firstnumber==NULL){
-        labelNumber = (ui->label->text() + button->text()).toDouble();
-        newLabel = QString::number(labelNumber,'g',15);
-        ui->label->setText(newLabel);
-    } else {
-        if (checker == false){
-            A:
-            labelNumber = (button->text()).toDouble();
-            newLabel = QString::number(labelNumber,'g',15);
-            ui->label->setText(newLabel);
-            checker = true;
-        } else {
+    if(anotherchecker==1){
+
+    } else if(anotherchecker==2){
+
+    } else if(lastoperation_equal){
+            lastoperation_equal = false;
+            goto A;
+        } else if(firstnumber==NULL){
             labelNumber = (ui->label->text() + button->text()).toDouble();
             newLabel = QString::number(labelNumber,'g',15);
             ui->label->setText(newLabel);
+        } else {
+            if (checker == false){
+                A:
+                labelNumber = (button->text()).toDouble();
+                newLabel = QString::number(labelNumber,'g',15);
+                ui->label->setText(newLabel);
+                checker = true;
+            } else {
+                labelNumber = (ui->label->text() + button->text()).toDouble();
+                newLabel = QString::number(labelNumber,'g',15);
+                ui->label->setText(newLabel);
+            }
         }
-    }
 }
 
 void MainWindow::on_pushButton_dot_released() {
@@ -76,9 +81,12 @@ void MainWindow::on_pushButton_dot_released() {
         ui->label->setText(ui->label->text()+".");
     }
 }
-void MainWindow::another(){
+
+void MainWindow::another(int option){
     qDebug() << "another";
+    anotherchecker==true;
 }
+
 void MainWindow::dodawanie(){
 
     qDebug() << "operation pressed";
@@ -114,8 +122,8 @@ void MainWindow::odejmowanie(){
             checker = false;
         }
     }
-
 }
+
 void MainWindow::mnozenie(){
     if(secondchecker){
         if(firstnumber==NULL){
@@ -181,14 +189,22 @@ void MainWindow::type_(){
             }
             case 3:{
                 if(type==1 || type==2){
-                    another();
+                    if(anotherchecker==1){
+                        secondnumber = (ui->label->text()).toDouble();
+                        //---------------------
+                    }
+                    another(3);
                 } else {
                     mnozenie();
                 }
                 break;
             }
             case 4: {
-                dzielenie();
+                if(type == 1 || type == 2){
+                    another(4);
+                } else {
+                    dzielenie();
+                }
                 break;
             }
             default: {
@@ -197,6 +213,7 @@ void MainWindow::type_(){
         }
     }
 }
+
 void MainWindow::operation_pressed(){
     QPushButton * button = (QPushButton*)sender();
     if(button->text()=="+"){
@@ -208,35 +225,36 @@ void MainWindow::operation_pressed(){
         qDebug() << "type2";
     } else if (button->text()=="x"){
         if(type==1 || type==2){
-            another();
+            another(3);
         } else {
             type = 3;
             type_();
         }
     } else if (button->text()=="/"){
-        type = 4;
-        type_();
+        if(type==1 || type==2){
+            another(4);
+        } else {
+            type = 4;
+            type_();
+        }
         qDebug() << "dzielenie";
     }
     lastoperation_equal = false;
 }
 
-void MainWindow::on_pushButton_equal_clicked()
-{
+void MainWindow::on_pushButton_equal_clicked() {
     //lastoperation_equal = true;
     type_();
     ui->label->setText(QString::number(result));
 }
 
-void MainWindow::on_pushButton_proccent_released()
-{
+void MainWindow::on_pushButton_proccent_released() {
     double labelNumber = (ui->label->text()).toDouble()/100;
     QString newLabel = QString::number(labelNumber);
     ui->label->setText(newLabel);
 }
 
-void MainWindow::on_pushButton_del_clicked()
-{
+void MainWindow::on_pushButton_del_clicked() {
     double labelNumber = (ui->label->text()).toDouble();
     if(labelNumber!=0){
         QString newLabel = QString::number(labelNumber);
@@ -250,24 +268,21 @@ void MainWindow::on_pushButton_del_clicked()
     }
 }
 
-void MainWindow::on_pushButton_sqrt_clicked()
-{
+void MainWindow::on_pushButton_sqrt_clicked() {
     double labelNumber = (ui->label->text()).toDouble();
     double sqrtNumber = sqrt(labelNumber);
     QString sqrtLabel = QString::number(sqrtNumber);
     ui->label->setText(sqrtLabel);
 }
 
-void MainWindow::on_pushButton_pow_clicked()
-{
+void MainWindow::on_pushButton_pow_clicked() {
     double labelNumber = (ui->label->text()).toDouble();
     double powNumber = pow(labelNumber,2);
     QString powLabel = QString::number(powNumber);
     ui->label->setText(powLabel);
 }
 
-void MainWindow::on_pushButton_1x_clicked()
-{
+void MainWindow::on_pushButton_1x_clicked() {
     double labelNumber = (ui->label->text()).toDouble();
     double revNumber = 1/labelNumber;
     QString revLabel = QString::number(revNumber);
