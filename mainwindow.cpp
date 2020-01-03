@@ -190,6 +190,7 @@ void MainWindow::type_(){
             case 3:{
                 if(type==1 || type==2){
                     if(anotherchecker==1){
+                        qDebug() << "thisone";
                         secondnumber = (ui->label->text()).toDouble();
                         //---------------------
                     }
@@ -225,6 +226,10 @@ void MainWindow::operation_pressed(){
         qDebug() << "type2";
     } else if (button->text()=="x"){
         if(type==1 || type==2){
+            qDebug() << "thisss";
+            qDebug() << firstnumber << secondnumber;
+            secondnumber = (ui->label->text()).toDouble();
+            anotherchecker = 4;
             another(3);
         } else {
             type = 3;
