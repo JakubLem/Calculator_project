@@ -1,7 +1,7 @@
 //Jakub Lemiesiewicz
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <cmath>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -97,7 +97,6 @@ void MainWindow::dodawanie(){
             checker = false;
         }
     }
-
 }
 void MainWindow::odejmowanie(){
     if(secondchecker){
@@ -164,7 +163,10 @@ void MainWindow::on_pushButton_C_clicked() {
     ui->label->setText("0");
     firstnumber = NULL;
     secondnumber = NULL;
+    type = NULL;
     checker = false;
+    secondchecker = true;
+    lastoperation_equal = false;
 }
 void MainWindow::type_(){
     if(type!=NULL){
@@ -224,4 +226,50 @@ void MainWindow::on_pushButton_equal_clicked()
     //lastoperation_equal = true;
     type_();
     ui->label->setText(QString::number(result));
+}
+
+void MainWindow::on_pushButton_proccent_released()
+{
+    double labelNumber = (ui->label->text()).toDouble()/100;
+    QString newLabel = QString::number(labelNumber);
+    ui->label->setText(newLabel);
+}
+
+void MainWindow::on_pushButton_del_clicked()
+{
+    double labelNumber = (ui->label->text()).toDouble();
+    if(labelNumber!=0){
+        QString newLabel = QString::number(labelNumber);
+        int x = newLabel.length();
+        if(x==1){
+            ui->label->setText("0");
+        } else {
+            newLabel.remove(x-1,x);
+            ui->label->setText(newLabel);
+        }
+    }
+}
+
+void MainWindow::on_pushButton_sqrt_clicked()
+{
+    double labelNumber = (ui->label->text()).toDouble();
+    double sqrtNumber = sqrt(labelNumber);
+    QString sqrtLabel = QString::number(sqrtNumber);
+    ui->label->setText(sqrtLabel);
+}
+
+void MainWindow::on_pushButton_pow_clicked()
+{
+    double labelNumber = (ui->label->text()).toDouble();
+    double powNumber = pow(labelNumber,2);
+    QString powLabel = QString::number(powNumber);
+    ui->label->setText(powLabel);
+}
+
+void MainWindow::on_pushButton_1x_clicked()
+{
+    double labelNumber = (ui->label->text()).toDouble();
+    double revNumber = 1/labelNumber;
+    QString revLabel = QString::number(revNumber);
+    ui->label->setText(revLabel);
 }

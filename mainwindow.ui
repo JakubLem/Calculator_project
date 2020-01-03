@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
+    <width>340</width>
     <height>400</height>
    </rect>
   </property>
@@ -227,7 +227,7 @@
      <rect>
       <x>200</x>
       <y>300</y>
-      <width>61</width>
+      <width>121</width>
       <height>61</height>
      </rect>
     </property>
@@ -274,13 +274,65 @@
      <string>1</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_sqrt">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>120</y>
+      <width>60</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>sqrt(x)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_del">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>60</y>
+      <width>60</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DEL</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_pow">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>180</y>
+      <width>60</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>x^2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_1x">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>240</y>
+      <width>60</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1/x</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>280</width>
+     <width>340</width>
      <height>17</height>
     </rect>
    </property>

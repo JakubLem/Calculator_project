@@ -40,5 +40,10 @@ private slots:
     void on_pushButton_C_clicked();
     void operation_pressed();
     void on_pushButton_equal_clicked();
+    void on_pushButton_proccent_released();
+    void on_pushButton_del_clicked();
+    void on_pushButton_sqrt_clicked();
+    void on_pushButton_pow_clicked();
+    void on_pushButton_1x_clicked();
 };
 #endif // MAINWINDOW_H
