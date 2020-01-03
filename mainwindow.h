@@ -19,15 +19,21 @@ public:
     bool checker = false;
     int type = NULL;
     bool lastoperation_equal = false;
+    bool secondchecker;
+
 private:
     Ui::MainWindow *ui;
 
 private slots:
     void optymalize();
     void digital_pressed();
-
+    void another();
+    void dodawanie();
+    void odejmowanie();
+    void mnozenie();
+    void dzielenie();
     void on_pushButton_dot_released();
-
+    void type_();
 
     bool isdothere(QString a);
     void on_pushButton_plusminus_released();
