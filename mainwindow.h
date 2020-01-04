@@ -22,6 +22,8 @@ public:
     bool lastoperation_equal = false;
     bool secondchecker = true;
     int lasttype = NULL;
+    bool thirdchecker = true;
+    bool kolejnosc = false;
 
 private:
     Ui::MainWindow *ui;
@@ -36,6 +38,7 @@ private slots:
     void dzielenie();
     void on_pushButton_dot_released();
     void type_();
+    void anotherfunc(); //funkcja odpowiedzialna za działania w przypadku innej kolejności wykonywania działań ++ X
     bool isdothere(QString a);
     void on_pushButton_plusminus_released();
     void on_pushButton_C_clicked();

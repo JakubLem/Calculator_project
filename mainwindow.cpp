@@ -1,7 +1,10 @@
 //Jakub Lemiesiewicz
 
 
-//usunąć z funkcji type argumenty i zmienić ciało funkcji
+//usunąć z funkcji type argumenty i zmienić ciało funkcji || done
+//dokończyć dzielenie jak mnozenie
+//kolejność wykonywania działań
+
 
 
 
@@ -51,6 +54,7 @@ void MainWindow::optymalize(){
 
 void MainWindow::digital_pressed(){
     //qDebug() << "test";
+    thirdchecker = true;
     secondchecker = true;
     QPushButton * button = (QPushButton*)sender();
     double labelNumber;
@@ -112,6 +116,11 @@ void MainWindow::equal(){
 
     }
 }
+
+void MainWindow::anotherfunc(){
+
+}
+
 void MainWindow::dodawanie(){
     qDebug() << "operation pressed";
     if(secondchecker){
@@ -123,13 +132,25 @@ void MainWindow::dodawanie(){
                 secondnumber = (ui->label->text()).toDouble();
                 secondchecker = false;
             }
+            A:
             result = firstnumber+secondnumber;
             ui->label->setText(QString::number(result));
             firstnumber=result;
             checker = false;
         }
-    }
+    } else if (lastoperation_equal) {
+            goto A;
+        }else if(thirdchecker){
+            thirdchecker = false;
+        } else {
+            if(lasttype == 1){
+                result = firstnumber+secondnumber;
+                firstnumber=result;
+                qDebug() << secondnumber << result;
+            }
+        }
 }
+
 void MainWindow::odejmowanie(){
     if(secondchecker){
         if(firstnumber==NULL){
@@ -140,10 +161,21 @@ void MainWindow::odejmowanie(){
                 secondnumber = (ui->label->text()).toDouble();
                 secondchecker = false;
             }
+            A:
             result = firstnumber-secondnumber;
             ui->label->setText(QString::number(result));
             firstnumber=result;
             checker = false;
+        }
+    } else if (lastoperation_equal) {
+        goto A;
+    }else if(thirdchecker){
+        thirdchecker = false;
+    } else {
+        if(lasttype == 2){
+            result = firstnumber-secondnumber;
+            firstnumber=result;
+            qDebug() << secondnumber << result;
         }
     }
 }
@@ -158,10 +190,21 @@ void MainWindow::mnozenie(){
                 secondnumber = (ui->label->text()).toDouble();
                 secondchecker = false;
             }
+            A:
             result = firstnumber*secondnumber;
             ui->label->setText(QString::number(result));
             firstnumber=result;
             checker = false;
+        }
+    } else if (lastoperation_equal) {
+        goto A;
+    }else if(thirdchecker){
+        thirdchecker = false;
+    } else {
+        if(lasttype == 3){
+            result = firstnumber*secondnumber;
+            firstnumber=result;
+            qDebug() << secondnumber << result;
         }
     }
 }
@@ -176,10 +219,21 @@ void MainWindow::dzielenie(){
                 secondnumber = (ui->label->text()).toDouble();
                 secondchecker = false;
             }
+            A:
             result = firstnumber/secondnumber;
             ui->label->setText(QString::number(result));
             firstnumber=result;
             checker = false;
+        }
+    } else if (lastoperation_equal) {
+        goto A;
+    }else if(thirdchecker){
+        thirdchecker = false;
+    } else {
+        if(lasttype == 4){
+            result = firstnumber/secondnumber;
+            firstnumber=result;
+            qDebug() << secondnumber << result;
         }
     }
 }
@@ -204,7 +258,6 @@ void MainWindow::on_pushButton_C_clicked() {
 }
 
 void MainWindow::type_(){
-    checker = false;
     if(lasttype!=NULL){
         switch (lasttype) {
             case 1:{
@@ -235,46 +288,66 @@ void MainWindow::type_(){
 }
 
 void MainWindow::operation_pressed(){
-    if(type!=NULL){
-        lasttype = type;
-    }
-    type_();
-    checker = false;
-    QPushButton * button = (QPushButton*)sender();
-    if(button->text()=="+"){
-        lasttype = 1;
+    if(!thirdchecker){
+        qDebug() << "tuu" << type << lasttype;
+        type = lasttype;
 
-    } else if (button->text()=="-"){
-        lasttype = 2;
+        QPushButton * button = (QPushButton*)sender();
+        if(button->text()=="+"){
+            lasttype = 1;
 
-        qDebug() << "type2";
-    } else if (button->text()=="x"){
-            lasttype = 3;
-            /*
-            if(lasttype==NULL){
-                lasttype = type;
+        } else if (button->text()=="-"){
+            lasttype = 2;
+
+            qDebug() << "type2";
+        } else if (button->text()=="x"){
+                lasttype = 3;
+        } else if (button->text()=="/"){
+                lasttype = 4;
             }
-            type_();
-            */
-
-    } else if (button->text()=="/"){
-            lasttype = 4;
-            /*
-            if(lasttype==NULL){
-                lasttype = type;
-            }
-            type_();
-            */
+        if(type!=lasttype){
+            thirdchecker = true;
         }
-        qDebug() << "dzielenie";
-
+        type_();
+        ui->label->setText(QString::number(result));
+        lastoperation_equal = false;
+    } else {
+        if(type!=NULL){
+            lasttype = type;
+        }
+        type_();
+        checker = false;
+        QPushButton * button = (QPushButton*)sender();
+        if(button->text()=="+"){
+            lasttype = 1;
+            type_();
+        } else if (button->text()=="-"){
+            lasttype = 2;
+            qDebug() << "type2";
+            type_();
+        } else if (button->text()=="x"){
+                qDebug() << lasttype;
+                if(lasttype == 1 || lasttype==2){
+                    if(thirdnumber!=NULL){
+                        kolejnosc = true;
+                    } else {
+                        anotherfunc();
+                    }
+                }
+                lasttype = 3;
+                type_();
+        } else if (button->text()=="/"){
+                qDebug() << lasttype;
+                lasttype = 4;
+                type_();
+            }
+    }
     lastoperation_equal = false;
-    type_();
 }
 
 void MainWindow::on_pushButton_equal_clicked() {
-    //lastoperation_equal = true;
-
+    lastoperation_equal = true;
+    qDebug() << type << lasttype;
     type_();
     ui->label->setText(QString::number(result));
 }
