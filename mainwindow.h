@@ -18,9 +18,10 @@ public:
     double firstnumber = NULL, secondnumber = NULL,thirdnumber = NULL, result = NULL;
     bool checker = false;
     int type = NULL;
+    bool lastoperation_so = false;
     bool lastoperation_equal = false;
-    bool secondchecker;
-    int anotherchecker = 0;
+    bool secondchecker = true;
+    int lasttype = NULL;
 
 private:
     Ui::MainWindow *ui;
@@ -28,15 +29,13 @@ private:
 private slots:
     void optymalize();
     void digital_pressed();
-    void another(int option);
+    void equal();
     void dodawanie();
     void odejmowanie();
     void mnozenie();
     void dzielenie();
     void on_pushButton_dot_released();
-    void type_(int option);
-    void dzielenie_trzy();
-    void mnozenie_trzy();
+    void type_();
     bool isdothere(QString a);
     void on_pushButton_plusminus_released();
     void on_pushButton_C_clicked();

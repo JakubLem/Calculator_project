@@ -48,27 +48,14 @@ void MainWindow::optymalize(){
     QString upLabel = ui->label->text();
 
 }
-void MainWindow::dzielenie_trzy(){
-    qDebug() << "dzielenietrzy";
-}
-void MainWindow::mnozenie_trzy(){
-    qDebug() << "mnozenietrzy";
-}
+
 void MainWindow::digital_pressed(){
     //qDebug() << "test";
     secondchecker = true;
     QPushButton * button = (QPushButton*)sender();
     double labelNumber;
     QString newLabel;
-    if(anotherchecker==4){
-        anotherchecker=5;
-        goto A;
-    } else if(anotherchecker==5){
-        goto B;
-    } else if(anotherchecker==7){
-        qDebug() << "ja pierdooooleeeee";
-        thirdnumber = (ui->label->text()).toDouble();
-    } else if(lastoperation_equal){
+    if(lastoperation_equal){
             lastoperation_equal = false;
             goto A;
         } else if(firstnumber==NULL){
@@ -97,7 +84,7 @@ void MainWindow::on_pushButton_dot_released() {
         ui->label->setText(ui->label->text()+".");
     }
 }
-
+/*
 void MainWindow::another(int option){
     if(thirdnumber!=NULL){
         switch (option) {
@@ -119,9 +106,13 @@ void MainWindow::another(int option){
     }
     qDebug() << "another";
 }
+*/
+void MainWindow::equal(){
+    if(type!=NULL){
 
+    }
+}
 void MainWindow::dodawanie(){
-    anotherchecker = 1;
     qDebug() << "operation pressed";
     if(secondchecker){
         if(firstnumber==NULL){
@@ -140,7 +131,6 @@ void MainWindow::dodawanie(){
     }
 }
 void MainWindow::odejmowanie(){
-    anotherchecker = 1;
     if(secondchecker){
         if(firstnumber==NULL){
             firstnumber = (ui->label->text()).toDouble();
@@ -193,6 +183,7 @@ void MainWindow::dzielenie(){
         }
     }
 }
+
 void MainWindow::on_pushButton_plusminus_released() {
     double labelNumber = (ui->label->text()).toDouble();
     QString newLabel;
@@ -209,116 +200,82 @@ void MainWindow::on_pushButton_C_clicked() {
     checker = false;
     secondchecker = true;
     lastoperation_equal = false;
-    anotherchecker = 0;
+    lasttype = NULL;
 }
-void MainWindow::type_(int option){
 
-    if(anotherchecker==5){
-        switch (type) {
-            case 3: {
-                anotherchecker=7;
-                mnozenie_trzy();
+void MainWindow::type_(){
+    checker = false;
+    if(lasttype!=NULL){
+        switch (lasttype) {
+            case 1:{
+                dodawanie();
+                //lasttype = 1;
+                break;
+            }
+            case 2:{
+                odejmowanie();
+                //lasttype = 2;
+                break;
+            }
+            case 3:{
+                mnozenie();
+                //lasttype = 3;
                 break;
             }
             case 4: {
-                anotherchecker=7;
-                dzielenie_trzy();
+                dzielenie();
+                //lasttype = 4;
                 break;
             }
-        }
-    } else {
-        if(type!=NULL){
-            switch (type) {
-                case 1:{
-                    dodawanie();
-                    break;
-                }
-                case 2:{
-                    odejmowanie();
-                    break;
-                }
-                case 3:{
-                    if(option==1 || option==2){
-                        if(anotherchecker==1){
-                            qDebug() << "thisone";
-                            secondnumber = (ui->label->text()).toDouble();
-                            qDebug() << firstnumber;
-                            qDebug() << secondnumber;
-                        }
-                        another(3);
-                    } else {
-                        mnozenie();
-                    }
-                    break;
-                }
-                case 4: {
-                    if(option == 1 || option == 2){
-
-                        another(4);
-                    } else {
-                        dzielenie();
-                    }
-                    break;
-                }
-                default: {
-                    qDebug() <<"ERROR";
-                }
+            default: {
+                qDebug() <<"ERROR";
             }
         }
     }
-
 }
 
 void MainWindow::operation_pressed(){
-    QPushButton * button = (QPushButton*)sender();
-    if(anotherchecker==5){
-        switch (type) {
-            case 3: {
-                anotherchecker=7;
-                //mnozenie_trzy();
-                break;
-            }
-            case 4: {
-                anotherchecker=7;
-                //dzielenie_trzy();
-                break;
-            }
-        }
+    if(type!=NULL){
+        lasttype = type;
     }
+    type_();
+    checker = false;
+    QPushButton * button = (QPushButton*)sender();
     if(button->text()=="+"){
-        type = 1;
-        type_(1);
+        lasttype = 1;
+
     } else if (button->text()=="-"){
-        type = 2;
-        type_(2);
+        lasttype = 2;
+
         qDebug() << "type2";
     } else if (button->text()=="x"){
-        if(type==1 || type==2){
-            secondnumber = (ui->label->text()).toDouble();
-            qDebug() << "thisss";
-            qDebug() << firstnumber << secondnumber;
-            anotherchecker = 4;
-            another(3);
-        } else {
-            type = 3;
-            type_(3);
-        }
+            lasttype = 3;
+            /*
+            if(lasttype==NULL){
+                lasttype = type;
+            }
+            type_();
+            */
+
     } else if (button->text()=="/"){
-        if(type==1 || type==2){
-            another(4);
-        } else {
-            type = 4;
-            type_(4);
+            lasttype = 4;
+            /*
+            if(lasttype==NULL){
+                lasttype = type;
+            }
+            type_();
+            */
         }
         qDebug() << "dzielenie";
-    }
+
     lastoperation_equal = false;
+    type_();
 }
 
 void MainWindow::on_pushButton_equal_clicked() {
     //lastoperation_equal = true;
 
-    type_(type);
+    type_();
     ui->label->setText(QString::number(result));
 }
 
