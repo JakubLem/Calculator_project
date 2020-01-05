@@ -25,6 +25,7 @@ public:
     bool thirdchecker = true;
     bool kolejnosc = false;
 
+
 private:
     Ui::MainWindow *ui;
 

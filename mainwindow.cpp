@@ -1,13 +1,5 @@
 //Jakub Lemiesiewicz
 
-
-//usunąć z funkcji type argumenty i zmienić ciało funkcji || done
-//dokończyć dzielenie jak mnozenie
-//kolejność wykonywania działań
-
-
-
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <cmath>
@@ -49,7 +41,6 @@ bool MainWindow::isdothere(QString a){
 
 void MainWindow::optymalize(){
     QString upLabel = ui->label->text();
-
 }
 
 void MainWindow::digital_pressed(){
@@ -88,37 +79,13 @@ void MainWindow::on_pushButton_dot_released() {
         ui->label->setText(ui->label->text()+".");
     }
 }
-/*
-void MainWindow::another(int option){
-    if(thirdnumber!=NULL){
-        switch (option) {
-            case 3: {
-                result = (firstnumber+secondnumber)*thirdnumber;
-                qDebug() << "case3";
-                break;
-            }
-            case 4: {
-                result = (firstnumber+secondnumber)/thirdnumber;
-                qDebug() << "case4";
-                break;
-            }
-        }
-    } else{
-        qDebug() << firstnumber << secondnumber << thirdnumber;
-        qDebug() << firstnumber << secondnumber << thirdnumber;
 
-    }
-    qDebug() << "another";
-}
-*/
 void MainWindow::equal(){
     if(type!=NULL){
-
     }
 }
 
 void MainWindow::anotherfunc(){
-
 }
 
 void MainWindow::dodawanie(){
@@ -262,22 +229,18 @@ void MainWindow::type_(){
         switch (lasttype) {
             case 1:{
                 dodawanie();
-                //lasttype = 1;
                 break;
             }
             case 2:{
                 odejmowanie();
-                //lasttype = 2;
                 break;
             }
             case 3:{
                 mnozenie();
-                //lasttype = 3;
                 break;
             }
             case 4: {
                 dzielenie();
-                //lasttype = 4;
                 break;
             }
             default: {
@@ -291,11 +254,9 @@ void MainWindow::operation_pressed(){
     if(!thirdchecker){
         qDebug() << "tuu" << type << lasttype;
         type = lasttype;
-
         QPushButton * button = (QPushButton*)sender();
         if(button->text()=="+"){
             lasttype = 1;
-
         } else if (button->text()=="-"){
             lasttype = 2;
 
@@ -338,6 +299,13 @@ void MainWindow::operation_pressed(){
                 type_();
         } else if (button->text()=="/"){
                 qDebug() << lasttype;
+                if(lasttype == 1 || lasttype == 2){
+                    if(thirdnumber!=NULL){
+                        kolejnosc = true;
+                    } else {
+                        anotherfunc();
+                    }
+                }
                 lasttype = 4;
                 type_();
             }
